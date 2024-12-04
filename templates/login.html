@@ -1,0 +1,24 @@
+{% extends 'loginbase.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Campus Support{% endblock %}
+
+{% block content %}
+    {{ render_form(my_login) }}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+{% endblock %}

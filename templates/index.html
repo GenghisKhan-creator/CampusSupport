@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Campus Support{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <div class="container-fluid vh-100 d-flex justify-content-center align-items-center bg-custom">
+      <div class="px-4 py-5 my-5 mt-0 text-center">
+      <h1 class="custom1 display-5 fw-bold text-body-emphasis" id="obj1"><span class="heading1">Campus Support Center</span></h1>
+      <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4 custom-text">Quickly access campus resources and get the support you need. Our platform connects students with essential services and information.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3"><a href="{{ url_for('get_started') }}" class="nav-link px-2">Get Started</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Learn More</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+  <div class="container px-4 py-5" id="featured-3">
+    <h2 class="pb-2 border-bottom text-center text-body-secondary">Key Features</h2>
+    <div class="row g-4 py-3 row-cols-1 row-cols-lg-3">
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-calendar-week" viewBox="0 0 16 16">
+            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+          </svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">24/7 Support</h3>
+        <p class="lead mb-2">You can access assistance and resources 24/7, ensuring you receive support whenever it’s needed, regardless of the time of day or night. 😊</p>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+            <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+          </svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">Resource Library</h3>
+        <p class="lead mb-2">Explore our extensive collection of guides and tutorials, and find the information you need. 📚</p>
+      </div>
+      <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+            <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+            <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+          </svg>
+        </div>
+        <h3 class="fs-2 text-body-emphasis">Live Chat</h3>
+        <p  class="lead mb-2" >Connect instantly with our support staff for immediate assistance through our social media channels. 🚀</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="px-4 py-0 my-2 text-center">
+    <h2 class="pb-2 border-bottom text-center text-body-secondary">About</h2>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-2">The Campus Support System is designed to provide students with a convenient and efficient way to address various academic and administrative concerns. Whether you need to file complaints, apply for resits, resolve school fees issues, request deferments, change your program, or handle general requests, our system is here to assist you. We aim to ensure a smooth and supportive experience throughout your academic journey. 📘</p>
+      <p class="lead mb-4">Feel free to reach out whenever you need assistance. We're committed to helping you succeed! 🌟</p>
+    </div>
+  </div>
+{% endblock %}

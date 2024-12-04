@@ -1,0 +1,710 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block title %}Student Support{% endblock %}
+
+{% block content %}
+    <div class="px-4 py-5 my-1 text-center">
+        <h2 class="custom1 display-5 fw-bold text-body-emphasis">How can I be of help today?😊</h2>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
+                    <form action="{{ url_for('get_started') }}" method="POST">
+                        {{ render_form(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--None-->
+{% if current_form  == 'None': %}
+    <div class="container-fluid vh-100 d-flex justify-content-center align-items-center bg-custom">
+
+    </div>
+    </div>
+{% endif %}
+
+    <!--Complaint Area -->
+{% if current_form  == 'Complaint Form': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Complaint Form</h2>
+        <form action="{{ url_for('get_started') }}" method="POST" >
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="surname" placeholder="Batonsuglo" name="surname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Badawiisi" name="firstname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="otherNames" placeholder="Hatong" name="othername" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="studentId" placeholder="Student ID here..." name="student_id" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="programme" name="programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="level" name="level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" name="phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="department" name="department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="faculty" name="faculty" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="courseCode" class="form-label">Course Code</label>
+                    <input type="text" class="form-control" id="courseCode" name="code" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="courseTitle" class="form-label">Course Title</label>
+                    <input type="text" class="form-control" id="courseTitle" name="course_title" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lecturerName" class="form-label">Lecturer Name</label>
+                <input type="text" class="form-control" id="lecturerName" name="lecturer" required>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="paperTaken" class="form-label">Year Paper Was Taken</label>
+                    <input type="text" class="form-control" id="paperTaken" name="year_taken" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="semester" class="form-label">Semester Paper Was Taken</label>
+                    <select class="form-select" id="semester" name="semester_taken" required>
+                        <option value="">Choose...</option>
+                        <option>First Semester</option>
+                        <option>Second Semester</option>
+                        <option>Third Semester</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="session" class="form-label">Session Paper Was Taken</label>
+                    <select class="form-select" id="session" name="session_taken" required>
+                        <option value="">Choose...</option>
+                        <option>Morning</option>
+                        <option>Evening</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="gradeAwarded" class="form-label">Grade Awarded</label>
+                <input type="text" class="form-control" id="gradeAwarded" name="grade" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="natureOfComplaint" class="form-label">Nature of Complaint</label>
+                <textarea class="form-control" id="natureOfComplaint" rows="5" name="nature" required></textarea>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary text-center" value="submit_complaint" name="submit_complaint">
+                    Submit Complaint
+                </button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <!-- School Fees Area -->
+    {% if current_form  == 'School Fees': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">School Fees</h2>
+        <form action="{{ url_for('get_started') }}" method="POST" >
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="fees_surname" placeholder="Batonsuglo" name="fees_surname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="fees_firstName" placeholder="Badawiisi" name="fees_firstname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="fees_otherNames" placeholder="Hatong" name="fees_othername" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="fees_studentId" placeholder="Student ID here..." name="fees_studentid" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="fees_programme" name="fees_programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="fees_level" name="fees_level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="fees_date" name="fees_date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="fees_phoneNumber" name="fees_phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="fees_department" name="fees_department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="fees_faculty" name="fees_faculty" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="mb-3">
+                <label for="natureOfComplaint" class="form-label">Complaint</label>
+                <textarea class="form-control" id="" rows="5" name="school_feesc" required></textarea>
+            </div>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary text-center" value="fees_submit" name="fees_submit" >Submit Complaint</button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <!--Resit--->
+    {% if current_form  == 'Resit': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Resit Registration</h2>
+        <form action="{{ url_for('get_started') }}" method="POST" >
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="resit_surname" placeholder="Batonsuglo" name="sit_surname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="resit_firstName" placeholder="Badawiisi" name="sit_firstname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="resit_otherNames" placeholder="Hatong" name="sit_othername" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="resit_studentId" placeholder="Student ID here..." name="sit_studentid" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="resit_programme" name="sit_programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="resit_level" name="sit_level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="resit_date" name="sit_date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="resit_phoneNumber" name="sit_phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="resit_department" name="sit_department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="resit_faculty" name="sit_faculty" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="natureOfComplaint" class="form-label">List Courses Here</label>
+                <textarea class="form-control" id="resit_natureOfComplaint" name="sit_listcourse" rows="5" required></textarea>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary text-center" value="sit_submit" name="sit_submit" >Submit</button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <!-- Deferment -->
+
+    {% if current_form  == 'Deferment': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Deferment Registration</h2>
+        <form action="{{ url_for('get_started') }}" method="POST" >
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="def_surname" placeholder="Batonsuglo" name="def_surname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="def_firstName" placeholder="Badawiisi" name="def_firstname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="def_otherNames" placeholder="Hatong" name="def_othername" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="def_studentId" placeholder="Student ID here..." name="def_studentid" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="def_programme" name="def_programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="def_level" name="def_level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="def_date" name="def_date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="def_phoneNumber" name="def_phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="def_department" name="def_department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="def_faculty" name="def_faculty" required>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="date" class="form-label">Prefered Date</label>
+                <input type="date" class="form-control" id="def_to_date" name="def_datepref" required>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary text-center" value="def_button" name="def_button">Submit</button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <!-- Change Programme -->
+    {% if current_form  == 'Change Programme': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Change Programme Registration</h2>
+        <form action="{{ url_for('get_started') }}" method="POST" >
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="chn_surname" placeholder="Batonsuglo" name="prog_surname" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="chn_firstName" name="prog_firstname" placeholder="Badawiisi" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="chn_otherNames" name="prog_othername" placeholder="Hatong" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="chn_studentId" name="prog_studentid"  placeholder="Student ID here..." required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="chnold_programme" name="prog_programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="chn_level" name="prog_level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="chn_date" name="prog_date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="chn_phoneNumber" name="prog_phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="chn_department" name="prog_department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="chn_faculty" name="prog_faculty" required>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-2">
+                    <label for="programme" class="form-label">Prefered Programme</label>
+                    <select class="form-select" id="chn_programme" name="prog_prefered" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+
+            <div class="d-flex justify-content-center mb-5">
+                <button type="submit" class="btn btn-primary text-center" value="prog_submit" name="prog_submit">Submit</button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+    <!--Make Request-->
+    {% if current_form  == 'Make a request': %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Any General Requests?</h2>
+
+
+        <form action="{{ url_for('get_started') }}" method="POST">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" name="request_surname" class="form-control" id="res_surname" placeholder="Batonsuglo" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="request_firstname" name="request_firstname" placeholder="Badawiisi" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="otherNames" class="form-label">Other Names</label>
+                    <input type="text" class="form-control" id="request_othername" name="request_othername" placeholder="Hatong" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="studentId" class="form-label">Student ID</label>
+                    <input type="text" class="form-control" id="res_studentId" name="request_student_id" placeholder="Student ID here..." required>
+                </div>
+                <div class="col-md-6">
+                    <label for="programme" class="form-label">Programme</label>
+                    <select class="form-select" id="re_programme" name="request_programme" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                        <option>Accounting</option>
+                        <option>Economics</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="level" class="form-label">Level</label>
+                    <select class="form-select" id="re_level" name="request_level" required>
+                        <option value="">Choose...</option>
+                        <option>100</option>
+                        <option>200</option>
+                        <option>300</option>
+                        <option>400</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="re_date" name="request_date" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="re_phoneNumber" name="request_phone" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="department" class="form-label">Department</label>
+                    <select class="form-select" id="re_department" name="request_department" required>
+                        <option value="">Choose...</option>
+                        <option>Computer Science and IT</option>
+                        <option>Nursing</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="faculty" class="form-label">Faculty</label>
+                    <input type="text" class="form-control" id="re_faculty" name="request_faculty" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="natureOfComplaint" class="form-label">Make your request</label>
+                <textarea class="form-control" id="re_natureOfComplaint" rows="5" name="request_make" required></textarea>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary text-center" value="Request" name="Request">
+                    Submit
+                </button>
+            </div>
+            {% endif %}
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for category, message in messages %}
+<!--                    <li class="{{ category }}">{{ message }}</li>-->
+
+                    <script type="text/javascript">
+                        Swal.fire({
+                           title: "{{ message }}",
+                           text: "We will contact you through your contact info.",
+                           icon: "{{ category }}"
+                        });
+                    </script>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+    </div>
+
+{% endblock %}
