@@ -4,21 +4,5 @@
 
 {% block content %}
     {{ render_form(my_login) }}
-    {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for category, message in messages %}
-<!--                    <li class="{{ category }}">{{ message }}</li>-->
-
-                    <script type="text/javascript">
-                        Swal.fire({
-                           title: "{{ message }}",
-                           text: "We will contact you through your contact info.",
-                           icon: "{{ category }}"
-                        });
-                    </script>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+    <a href="{{ url_for('home_page') }}" class="nav-link px-2 mt-3 link-danger">Home</a>
 {% endblock %}

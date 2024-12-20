@@ -48,7 +48,7 @@
                             </a>
                         </li>
                         <li class="nav-item mt-auto">
-                            <a class="nav-link text-danger" href="{{ url_for('home_page') }}">
+                            <a class="nav-link text-danger" href="{{ url_for('login') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
                                     <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
@@ -69,74 +69,128 @@
                 <div class="row">
                    <div class="accordion accordion-flush" id="formAccordion">
                     <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button bg-light text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                School Fees From: Kofi Brokeman John
+                        {% for fees in all_fees %}
+                        <h2 class="accordion-header" id="heading{{ loop.index }}">
+                            <button class="accordion-button {% if not fees.is_read %}text-primary{% else %}bg-success text-white{% endif %} collapsed not-clicked"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ loop.index }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse{{ loop.index }}"
+                                    data-fees-id="{{ fees.id }}">
+                                School Fees From: {{ fees.surname }} {{ fees.other_name }} {{ fees.first_name }}
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#formAccordion">
+
+                        <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#formAccordion" data-complaint-id="{{ loop.index }}">
                             <div class="accordion-body bg-light">
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label class="form-label">Surname</label>
-                                        <p>Kofi</p>
+                                        <label class="form-label">Surname:</label>
+                                        <p>{{ fees.surname }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <p>Brokeman</p>
+                                        <label for="firstName" class="form-label">First Name:</label>
+                                        <p>{{ fees.first_name }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="otherNames" class="form-label">Other Names</label>
-                                        <p>John</p>
+                                        <label for="otherNames" class="form-label">Other Names:</label>
+                                        <p>{{ fees.other_name }}</p>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="studentId" class="form-label">Student ID</label>
-                                        <p>INT/19/01/8106</p>
+                                        <label for="studentId" class="form-label">Student ID:</label>
+                                        <p>{{ fees.student_id }}</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="programme" class="form-label">Programme</label>
-                                        <p>Computer Science</p>
+                                        <label for="programme" class="form-label">Programme:</label>
+                                        <p>{{ fees.programme }}</p>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-4">
-                                        <label for="level" class="form-label">Level</label>
-                                        <p>200</p>
+                                        <label for="level" class="form-label">Level:</label>
+                                        <p>{{ fees.level }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="date" class="form-label">Date</label>
-                                        <p>20/06/2024</p>
+                                        <label for="date" class="form-label">Date:</label>
+                                        <p>{{ fees.date }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                                        <p>0503432413</p>
+                                        <label for="phoneNumber" class="form-label">Phone Number:</label>
+                                        <p>{{ fees.phone_number }}</p>
                                     </div>
                                 </div>
 
                                 <div class="row mb-3">
                                     <div class="col-md-6">
-                                        <label for="department" class="form-label">Department</label>
-                                        <p>Computer Science and Information Technology</p>
+                                        <label for="department" class="form-label">Department:</label>
+                                        <p>{{ fees.department }}</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="faculty" class="form-label">Faculty</label>
-                                        <p>Engineering</p>
+                                        <label for="faculty" class="form-label">Faculty:</label>
+                                        <p>{{ fees.faculty }}</p>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="natureOfComplaint" class="form-label">Complaint</label>
-                                    <p>Paid but can't access portal</p>
+                                    <label for="natureOfComplaint" class="form-label">Receipt:</label>
+                                    <div class="card-img-container d-flex justify-content-center align-items-center" style="height: 600px;">
+                                        <img src="{{ url_for('static', filename='images/' + fees.img) }}"
+                                             class="img-fluid"
+                                             style="width: 900px; height: 600px;"
+                                             alt="{{ fees.surname }} {{ fees.first_name }}'s receipt">
+                                    </div>
+                                </div>
+                                <div class="text-start mb-3 ms-3">
+                                    <small class="text-success">Uploaded on: Date: {{ fees.created_at.strftime('%Y-%m-%d') }} Time: {{ fees.created_at.strftime('%H:%M:%S') }}</small>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </main>
         </div>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.accordion-button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const schoolfeesId = this.getAttribute('data-fees-id');
+
+                if (!this.classList.contains('bg-success')) {
+                    this.classList.remove('text-primary');
+                    this.classList.add('bg-success', 'text-white');
+
+                    fetch('/mark_schoolfees_as_read', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ schoolfees_id: schoolfeesId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('School fees marked as read in the database');
+                        } else {
+                            console.error('Failed to mark school fees as read');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        });
+    });
+    </script>
+
 {% endblock %}

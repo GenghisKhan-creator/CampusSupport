@@ -48,7 +48,7 @@
                             </a>
                         </li>
                         <li class="nav-item mt-auto">
-                            <a class="nav-link text-danger" href="{{ url_for('home_page') }}">
+                            <a class="nav-link text-danger" href="{{ url_for('login') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
                                     <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
@@ -83,11 +83,24 @@
                             <div class="card-body">
                                 <h5 class="card-title text-primary">Recent Activities</h5>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item list-group-item-action">Complaint submitted by Student A</li>
-                                    <li class="list-group-item list-group-item-action">Programme change request by Student B</li>
-                                    <li class="list-group-item list-group-item-action">Deferment application by Student C</li>
-                                    <li class="list-group-item list-group-item-action">Resit request by Student D</li>
-                                    <li class="list-group-item list-group-item-action">School fees inquiry by Student E</li>
+                                    {% if recent_complaint %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">Complaint submitted by</span> <span class="text-success">{{ recent_complaint.surname }} {{ recent_complaint.other_name }} {{ recent_complaint.first_name }}</span> </li>
+                                    {% endif %}
+                                    {% if recent_change %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">Programme change request by</span> <span class="text-success">{{ recent_change.surname }} {{ recent_change.other_name }} {{ recent_change.first_name }}</span></li>
+                                    {% endif %}
+                                    {% if recent_deferment %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">Deferment application by</span> <span class="text-success">{{ recent_deferment.surname }} {{ recent_deferment.other_name }} {{ recent_deferment.first_name }}</span></li>
+                                    {% endif %}
+                                    {% if recent_resit %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">Resit request by</span> <span class="text-success">{{ recent_resit.surname }} {{ recent_resit.other_name }} {{ recent_resit.first_name }}</span> </li>
+                                    {% endif %}
+                                    {% if latest_schoolfees %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">School fees inquiry by</span> <span class="text-success">{{ latest_schoolfees.surname }} {{ latest_schoolfees.other_name }} {{ latest_schoolfees.first_name }}</span></li>
+                                    {% endif %}
+                                    {% if recent_general %}
+                                    <li class="list-group-item list-group-item-action"><span class="text-danger">General Request by</span> <span class="text-success">{{ recent_general.surname  }} {{ recent_general.other_name }} {{ recent_general.first_name }}</span> </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>

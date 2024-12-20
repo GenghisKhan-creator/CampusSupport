@@ -1,17 +1,46 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from datetime import datetime
+from flask import Flask, render_template, redirect, url_for, request, flash, jsonify, session
 from werkzeug.utils import secure_filename
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, Float, BLOB, LargeBinary
+from sqlalchemy import Integer, String, Float, BLOB, LargeBinary,Boolean
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField,validators, TimeField, SelectField, PasswordField, EmailField, DateField
 from wtforms.validators import DataRequired,Email
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_session import Session
+import uuid as uuid
+import os
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "transgender"
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"  # Adjust as needed
+Session(app)
 Bootstrap5(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+UPLOAD_FOLDER = 'static/images/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+users = {
+    'admin@methodistuni.com': {
+        'password': 'admin1234'
+    }
+}
+
+class User(UserMixin):
+    def __init__(self, username):
+        self.id = username
+
+@login_manager.user_loader
+def load_user(user_id):
+    if user_id in users:
+        return User(user_id)
+    return None
 
 
 class Base(DeclarativeBase):
@@ -38,7 +67,9 @@ class GeneralRequest(db.Model):
     phone_number: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     department: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     faculty: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
     request: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class ComplaintForm(db.Model):
@@ -61,6 +92,8 @@ class ComplaintForm(db.Model):
     session_taken: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     grade_awarded: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     complaint_nature: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
 class SchoolFees(db.Model):
@@ -75,8 +108,9 @@ class SchoolFees(db.Model):
     phone_number: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     department: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     faculty: Mapped[str] = mapped_column(String, unique=False, nullable=False)
-    school_feesc: Mapped[str] = mapped_column(String, unique=False, nullable=False)
-
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
+    img: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Deferment(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -90,7 +124,9 @@ class Deferment(db.Model):
     phone_number: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     department: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     faculty: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
     prefered_date: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Resit(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -104,7 +140,9 @@ class Resit(db.Model):
     phone_number: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     department: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     faculty: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
     list_of_courses: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class ChangeProgramme(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -118,7 +156,9 @@ class ChangeProgramme(db.Model):
     phone_number: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     department: Mapped[str] = mapped_column(String, unique=False, nullable=False)
     faculty: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    is_read: Mapped[bool] = mapped_column(Boolean, default=False)
     prefered_programme: Mapped[str] = mapped_column(String, unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 with app.app_context():
     db.create_all()
@@ -127,8 +167,15 @@ with app.app_context():
 class LoginForm(FlaskForm):
     username = StringField(
         label='Username',
-        validators=[DataRequired(), validators.length(3, message='must be more than 3 characters')],
-        render_kw={'placeholder': 'Admin@methodist'}
+        validators=[DataRequired(),
+                    validators.length(
+                        3,
+                        message='must be more than 3 characters'
+                    )
+                    ],
+        render_kw={
+            'placeholder': 'Admin@methodist'
+        }
     )
 
     password = PasswordField(
@@ -155,16 +202,28 @@ def home_page():
     return render_template('index.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
-    email = "admin@methodistuni.com"
-    password = "admin1234"
-    if login_form.validate_on_submit():
-        if login_form.username.data != email and login_form.password.data != password:
-            flash('Error!', 'error')
+    if request.method == "POST":
+        username = login_form.username.data
+        password = login_form.password.data
+        print(username)
+        print(password)
+        if login_form.validate_on_submit():
+            if username in users and users[username]['password'] == password:
+                user = User(username)
+                login_user(user)
+                return redirect('dashboard')
+            else:
+                flash('Invalid Username or Password', 'error')
     return render_template('login.html', my_login = login_form)
 
+@app.route('/login')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/forms', methods=['GET', 'POST'])
 def get_started():
@@ -226,7 +285,11 @@ def get_started():
 
     if action2 == "fees_submit":
         if request.method == "POST":
-            file = request.files.get('bank_receipt')
+            pic = request.files.get('pic')
+            img_filename = secure_filename(pic.filename)
+            pic_name = str(uuid.uuid1()) + "_" + img_filename
+            pic.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
+            print(pic_name)
             new_fees = SchoolFees(
                 surname=request.form.get('fees_surname'),
                 first_name=request.form.get('fees_firstname'),
@@ -238,7 +301,7 @@ def get_started():
                 phone_number=request.form.get('fees_phone'),
                 department=request.form.get('fees_department'),
                 faculty=request.form.get('fees_faculty'),
-                school_feesc=request.form.get('school_feesc')
+                img = pic_name,
             )
 
             db.session.add(new_fees)
@@ -310,33 +373,148 @@ def get_started():
 
     return render_template('getstarted.html', form=form, current_form=current_form)
 
+
+@app.route('/mark_complaint_as_read', methods=['POST'])
+def mark_complaint_as_read():
+    data = request.json
+    complaint_id = data.get('complaint_id')
+
+    if complaint_id:
+        complaint = ComplaintForm.query.get(complaint_id)
+        if complaint:
+            complaint.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+@app.route('/mark_change_programme_as_read', methods=['POST'])
+def mark_change_programme_as_read():
+    data = request.json
+    programme_id = data.get('programme_id')
+
+    if programme_id:
+        programme = ChangeProgramme.query.get(programme_id)
+        if programme:
+            programme.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+@app.route('/mark_deferment_as_read', methods=['POST'])
+def mark_deferment_as_read():
+    data = request.json
+    deferment_id = data.get('deferment_id')
+
+    if deferment_id:
+        deferments = Deferment.query.get(deferment_id)
+        if deferments:
+            deferments.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+@app.route('/mark_resit_as_read', methods=['POST'])
+def mark_resit_as_read():
+    data = request.json
+    resit_id = data.get('resit_id')
+
+    if resit_id:
+        resits = Resit.query.get(resit_id)
+        if resits:
+            resits.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+@app.route('/mark_schoolfees_as_read', methods=['POST'])
+def mark_schoolfees_as_read():
+    data = request.json
+    schoolfees_id = data.get('schoolfees_id')
+
+    if schoolfees_id:
+        school = SchoolFees.query.get(schoolfees_id)
+        if school:
+            school.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+@app.route('/mark_general_request_as_read', methods=['POST'])
+def mark_general_request_as_read():
+    data = request.json
+    general_id = data.get('general_id')
+
+    if general_id:
+        general = GeneralRequest.query.get(general_id)
+        if general:
+            general.is_read = True
+            db.session.commit()
+            return jsonify({'success': True}), 200
+
+    return jsonify({'success': False}), 400
+
+
 @app.route('/dashboard')
+@login_required
 def dashboard():
-    return render_template('dashboard.html')
+    recent_complaint = db.session.execute(db.select(ComplaintForm).order_by(ComplaintForm.created_at.desc())).scalars().first()
+    recent_change = db.session.execute(db.select(ChangeProgramme).order_by(ChangeProgramme.created_at.desc())).scalars().first()
+    recent_deferment = db.session.execute(db.select(Deferment).order_by(Deferment.created_at.desc())).scalars().first()
+    recent_resit = db.session.execute(db.select(Resit).order_by(Resit.created_at.desc())).scalars().first()
+    latest_schoolfees = db.session.execute(db.select(SchoolFees).order_by(SchoolFees.created_at.desc())).scalars()
+    first_name2 = latest_schoolfees.first()
+    recent_general = db.session.execute(db.select(GeneralRequest).order_by(GeneralRequest.created_at.desc())).scalars().first()
+    return render_template('dashboard.html',
+                           recent_complaint=recent_complaint,
+                           recent_change=recent_change,
+                           recent_deferment=recent_deferment,
+                           recent_resit=recent_resit,
+                           latest_schoolfees=first_name2,
+                           recent_general=recent_general
+    )
 
 @app.route('/complaint')
+@login_required
 def complaint_dash():
-    return render_template('complaint_dash.html')
+    show_complaint = db.session.execute(db.select(ComplaintForm).order_by(ComplaintForm.created_at.desc())).scalars()
+    clicked = session.get('button_clicked', False)
+    return render_template('complaint_dash.html', complaint=show_complaint, clicked=clicked)
+
 
 @app.route('/change programme')
+@login_required
 def change_programme():
-    return render_template('change_programme.html')
+    show_change = db.session.execute(db.select(ChangeProgramme).order_by(ChangeProgramme.created_at.desc())).scalars()
+    return render_template('change_programme.html', program=show_change)
 
 @app.route('/deferment')
+@login_required
 def deferment():
-    return render_template('deferment.html')
+    show_deferment = db.session.execute(db.select(Deferment).order_by(Deferment.created_at.desc())).scalars()
+    return render_template('deferment.html', deferments=show_deferment)
 
 @app.route('/resit')
+@login_required
 def resit():
-    return render_template('resit.html')
+    show_resit = db.session.execute(db.select(Resit).order_by(Resit.created_at.desc())).scalars()
+    return render_template('resit.html', resits=show_resit)
 
 @app.route('/school fees')
+@login_required
 def school_fees():
-    return render_template('school_fees.html')
+    show_schoolfees = db.session.execute(db.select(SchoolFees).order_by(SchoolFees.created_at.desc())).scalars()
+    return render_template('school_fees.html', all_fees=show_schoolfees)
 
 @app.route('/general requests')
+@login_required
 def general_request():
-    return render_template('general_request.html')
+    general_requests = db.session.execute(db.select(GeneralRequest).order_by(GeneralRequest.created_at.desc())).scalars()
+    return render_template('general_request.html', general_requests=general_requests)
 
 
 if __name__ == "__main__":

@@ -52,10 +52,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="programme" name="programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -86,13 +100,34 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="department" name="department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="faculty" name="faculty" required>
+                    <select class="form-select" id="faculty" name="faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
@@ -123,7 +158,6 @@
                         <option value="">Choose...</option>
                         <option>First Semester</option>
                         <option>Second Semester</option>
-                        <option>Third Semester</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -178,7 +212,7 @@
     {% if current_form  == 'School Fees': %}
     <div class="container mt-5">
         <h2 class="mb-4 text-center">School Fees</h2>
-        <form action="{{ url_for('get_started') }}" method="POST" >
+        <form action="{{ url_for('get_started') }}" method="POST" enctype="multipart/form-data">
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="surname" class="form-label">Surname</label>
@@ -203,10 +237,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="fees_programme" name="fees_programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -237,21 +285,49 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="fees_department" name="fees_department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="fees_faculty" name="fees_faculty" required>
+                    <select class="form-select" id="fees_faculty" name="fees_faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
             <div class="mb-3">
-                <div class="mb-3">
-                <label for="natureOfComplaint" class="form-label">Complaint</label>
-                <textarea class="form-control" id="" rows="5" name="school_feesc" required></textarea>
-            </div>
+                <label for="imageUpload" class="form-label">Upload Image</label>
+                <div class="custom-file-upload" id="dropZone">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+                        <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                        <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+                    </svg>
+                    <br>
+                    <span class="text-primary">Drag and drop an image here or click to select</span>
+                    <input type="file" class="form-control d-none" id="imageUpload" accept="image/*" name="pic">
+                </div>
+                <img id="imagePreview" class="d-none">
             </div>
 
             <div class="d-flex justify-content-center mb-3">
@@ -309,10 +385,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="resit_programme" name="sit_programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -343,13 +433,34 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="resit_department" name="sit_department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="resit_faculty" name="sit_faculty" required>
+                    <select class="form-select" id="resit_faculty" name="sit_faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
@@ -414,10 +525,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="def_programme" name="def_programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -448,13 +573,34 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="def_department" name="def_department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="def_faculty" name="def_faculty" required>
+                    <select class="form-select" id="def_faculty" name="def_faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
@@ -518,10 +664,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="chnold_programme" name="prog_programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -552,13 +712,34 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="chn_department" name="prog_department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="chn_faculty" name="prog_faculty" required>
+                    <select class="form-select" id="chn_faculty" name="prog_faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
@@ -566,10 +747,24 @@
                     <label for="programme" class="form-label">Prefered Programme</label>
                     <select class="form-select" id="chn_programme" name="prog_prefered" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
 
@@ -630,10 +825,24 @@
                     <label for="programme" class="form-label">Programme</label>
                     <select class="form-select" id="re_programme" name="request_programme" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science</option>
-                        <option>Information Technology</option>
-                        <option>Accounting</option>
-                        <option>Economics</option>
+                        <option>BBA Accounting</option>
+                        <option>BBA Human Resource Management</option>
+                        <option>BA Communication Studies</option>
+                        <option>BSc Information Technology</option>
+                        <option>BSc Economics</option>
+                        <option>BSc Procurement & Supply Chain Mgt</option>
+                        <option>BSc Agric</option>
+                        <option>BBA Banking & Finance</option>
+                        <option>BBA Management Studies</option>
+                        <option>BBA Marketing</option>
+                        <option>BA Psychology</option>
+                        <option>BSc Nursing</option>
+                        <option>BA Social Work</option>
+                        <option>BSc Public Health Nursing</option>
+                        <option>Diploma in Information Technology (Dansoman/Tema)</option>
+                        <option>Diploma in General Agriculture (Wenchi)</option>
+                        <option>Diploma in General Nursing (ATHE-UK) - Level 3-Level 7</option>
+                        <option>BSc Public Health Nursing</option>
                     </select>
                 </div>
             </div>
@@ -664,13 +873,34 @@
                     <label for="department" class="form-label">Department</label>
                     <select class="form-select" id="re_department" name="request_department" required>
                         <option value="">Choose...</option>
-                        <option>Computer Science and IT</option>
-                        <option>Nursing</option>
+                        <option>Accounting Department</option>
+                        <option>Banking and Finance Department</option>
+                        <option>Human Resource Management and Management Studies Department</option>
+                        <option>Marketing and Supply chain Department</option>
+                        <option>Languages Department</option>
+                        <option>General Studies Department</option>
+                        <option>Religious Studies Department</option>
+                        <option>Music and Theatre Studies Department</option>
+                        <option>Economics Department</option>
+                        <option>Psychology Department</option>
+                        <option>Information Technology Department</option>
+                        <option>Mathematics and Statistics Departments</option>
+                        <option>Actuarial Science Department</option>
+                        <option>General Agricultural and Agribusiness Department</option>
+                        <option>Agroprocessing Department</option>
+                        <option>Nursing Department</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label for="faculty" class="form-label">Faculty</label>
-                    <input type="text" class="form-control" id="re_faculty" name="request_faculty" required>
+                    <select class="form-select" id="re_faculty" name="request_faculty" required>
+                        <option value="">Choose...</option>
+                        <option>Faculty of Business Administration</option>
+                        <option>Faculty of Arts and General Studies</option>
+                        <option>Faculty of Social Studies</option>
+                        <option>Faculty of Informatics and Mathematical Sciences</option>
+                        <option>Faculty of Applied Sciences</option>
+                    </select>
                 </div>
             </div>
 
