@@ -27,7 +27,7 @@ UPLOAD_FOLDER = 'static/images/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 users = {
-    'admin@methodistuni.com': {
+    'admin@cu.com': {
         'password': 'admin1234'
     }
 }
@@ -174,7 +174,7 @@ class LoginForm(FlaskForm):
                     )
                     ],
         render_kw={
-            'placeholder': 'Admin@methodist'
+            'placeholder': 'Enter Admin email'
         }
     )
 
